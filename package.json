@@ -1,0 +1,16 @@
+{
+    "name": "yarn",
+    "version": "1.0.0",
+    "main": "index.js",
+    "repository": "https://github.com/vivianeendler/vaccination-backend.git",
+    "author": "vivianeendler <vdendler@inf.ufsm.br>",
+    "license": "MIT",
+    "type": "module",
+    "dependencies": {
+        "dotenv": "^16.0.0",
+        "express": "^4.17.3"
+    },
+    "scripts": {
+        "start": "node ./src/index.js"
+    }
+}
