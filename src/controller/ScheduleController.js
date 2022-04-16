@@ -15,7 +15,21 @@ class ScheduleController {
             bornDate,
             email,
         });
-        response.send({ message: "Schedule created" }, schedule);
+        response.send({ message: "Schedule created", schedule });
+    }
+
+    async update(request, response) {
+        const { id } = request.params;
+        const { status, observation } = request.body;
+
+        const schedule = await ScheduleModel.findByIdAndUpdate(
+            id,
+            { status, observation },
+            {
+                new: true,
+            },
+        );
+        response.send(schedule);
     }
 }
 
