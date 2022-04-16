@@ -2,7 +2,7 @@ import mongoose from "mongoose";
 
 const ScheduleSchema = new mongoose.Schema(
     {
-        scheduletTo: { type: Date, min: Date.now(), required: true },
+        scheduledTo: { type: Date, min: Date.now(), required: true },
         name: { type: String, maxLength: 150, required: true },
         bornDate: { type: Date, max: Date.now(), required: true },
         email: { type: String, maxLength: 200 },
