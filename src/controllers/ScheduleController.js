@@ -1,5 +1,6 @@
 import ScheduleModel from "../models/ScheduleModel.js";
 import { createSchema, updateSchema } from "./validations/ScheduleSchemas.js";
+import { setHours, setMinutes, addHours } from "date-fns";
 
 class ScheduleController {
     async findAll(request, response) {
@@ -29,6 +30,37 @@ class ScheduleController {
 
         try {
             const { scheduledTo, name, bornDate, email } = request.body;
+
+            let start = new Date(scheduledTo);
+            start = setHours(start, 0);
+            start = setMinutes(start, 0);
+            start = addHours(start, -3);
+
+            let end = new Date(scheduledTo);
+            end = setMinutes(end, 59);
+            end = setHours(end, 20);
+
+            const daySchedules = await ScheduleModel.count({
+                scheduledTo: {
+                    $gte: start,
+                    $lte: end,
+                },
+            });
+            if (daySchedules >= 20) {
+                return response
+                    .status(406)
+                    .json({ message: "Daily schedules limit exceeded" });
+            }
+
+            const hourSchedules = await ScheduleModel.count({
+                scheduledTo: { $eq: scheduledTo },
+            });
+            if (hourSchedules >= 2) {
+                return response
+                    .status(406)
+                    .json({ message: "Schedules per hour limit exceeded" });
+            }
+
             const schedule = await ScheduleModel.create({
                 scheduledTo,
                 name,
