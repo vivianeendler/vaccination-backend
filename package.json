@@ -17,8 +17,8 @@
         "swagger-ui-express": "^4.3.0"
     },
     "scripts": {
-        "start": "node ./src/index.js",
-        "dev": "nodemon ./src/index.js",
+        "start": "node --experimental-json-modules ./src/index.js",
+        "dev": "nodemon --experimental-json-modules ./src/index.js",
         "swagger-generate": "node --experimental-json-modules src/swagger.js"
     },
     "devDependencies": {
