@@ -1,0 +1,122 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "Vaccination documentation",
+    "description": "This is the Vaccination project documentation.",
+    "version": "1.0.0"
+  },
+  "host": "localhost:3000",
+  "basePath": "/",
+  "schemes": [
+    "http"
+  ],
+  "paths": {
+    "/api/schedule": {
+      "post": {
+        "tags": [
+          "Schedules"
+        ],
+        "summary": "Create a new schedule.",
+        "description": "Route for create a new schedule.<br/>The maximum of schedules allowed per day is 20 and the maximum schedules allowed per hour is 2.",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "scheduledTo": {
+                  "example": "any"
+                },
+                "name": {
+                  "example": "any"
+                },
+                "bornDate": {
+                  "example": "any"
+                },
+                "email": {
+                  "example": "any"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "406": {
+            "description": "Not Acceptable"
+          }
+        }
+      }
+    },
+    "/api/schedules": {
+      "get": {
+        "tags": [
+          "Schedules"
+        ],
+        "summary": "Get all the schedules.",
+        "description": "Route for find all the schedules.",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/api/schedule/{id}": {
+      "put": {
+        "tags": [
+          "Schedules"
+        ],
+        "summary": "Update status and observation attributes of an existent schedule.",
+        "description": "Route for update an existent schedule.<br/>It allows to modify status (\"Atendido\" or \"Não Atendido\") and the orservation about the schedule.<br/>Example: \"Atendido\"   <br/><br/>   Attributes:<br/><br/>   <b>status:</b><br/>   <ul>   <li>in: body,</li>   <li>description: Attendance status.</li>   <li>required: true,</li>   <li>type: string</li>   <li>enum: [\"Atendido\", \"Não Atendido\"]</li>   </ul>   <br/>   <br/>   <b>observation:</b><br/>   <ul>   <li>in: body,</li>   <li>description: Observation about the attendance.</li>   <li>required: false,</li>   <li>type: string</li>   </ul>   ",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "status": {
+                  "example": "any"
+                },
+                "observation": {
+                  "example": "any"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "404": {
+            "description": "Not Found"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    }
+  }
+}

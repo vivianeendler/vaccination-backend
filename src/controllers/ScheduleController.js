@@ -4,6 +4,11 @@ import { setHours, setMinutes, addHours } from "date-fns";
 
 class ScheduleController {
     async findAll(request, response) {
+        /*
+            #swagger.tags = ['Schedules']
+            #swagger.summary = 'Get all the schedules.'
+            #swagger.description = 'Route for find all the schedules.'
+        */
         try {
             const schedules = await ScheduleModel.find();
             return response.send(schedules);
@@ -16,6 +21,11 @@ class ScheduleController {
     }
 
     async create(request, response) {
+        /*
+            #swagger.tags = ['Schedules']
+            #swagger.summary = 'Create a new schedule.'
+            #swagger.description = 'Route for create a new schedule.<br/>The maximum of schedules allowed per day is 20 and the maximum schedules allowed per hour is 2.'
+        */
         const schemaValidation = createSchema.validate(request.body, {
             abortEarly: false,
         });
@@ -78,6 +88,31 @@ class ScheduleController {
     }
 
     async update(request, response) {
+        /*
+            #swagger.tags = ['Schedules']
+            #swagger.summary = 'Update status and observation attributes of an existent schedule.'
+            #swagger.description = 'Route for update an existent schedule.<br/>It allows to modify status ("Atendido" or "Não Atendido") and the orservation about the schedule.<br/>Example: "Atendido"
+            <br/><br/>
+            Attributes:<br/><br/>
+             <b>status:</b><br/>
+             <ul>
+                <li>in: body,</li>
+                <li>description: Attendance status.</li>
+                <li>required: true,</li>
+                <li>type: string</li>
+                <li>enum: ["Atendido", "Não Atendido"]</li>
+            </ul>
+            <br/>
+            <br/>
+            <b>observation:</b><br/>
+            <ul>
+                <li>in: body,</li>
+                <li>description: Observation about the attendance.</li>
+                <li>required: false,</li>
+                <li>type: string</li>
+            </ul>
+            '
+        */
         const schemaValidation = updateSchema.validate(request.body, {
             abortEarly: false,
         });
